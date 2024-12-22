@@ -1,23 +1,20 @@
 from django import forms
-from models import User
+from ..models import User
 
 class EditProfileForm(forms.ModelForm):
-    # Não editáveis
+    # Não editável
 
     email = forms.EmailField(disabled=True, widget=forms.EmailInput(attrs={"class": "form-control",
-                                                                           "style": "#e9ecef;"}))
-    password = forms.PasswordInput(disabled=True, widget=forms.PasswordInput(attrs={"class": "form-control",
-                                                                                   "style": "#e9ecef;"}))
-    
+                                                                           "style": "#e9ecef;"}))    
     # Editáveis
 
-    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "style": "#FFF;"}))
-    first_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "style": "#FFF;"}))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "style": "#FFF;"}))
+    username = forms.CharField(required=False, widget=forms.TextInput(attrs={"class": "form-control", "style": "#FFF;"}))
+    first_name = forms.CharField(required=False, widget=forms.TextInput(attrs={"class": "form-control", "style": "#FFF;"}))
+    last_name = forms.CharField(required=False, widget=forms.TextInput(attrs={"class": "form-control", "style": "#FFF;"}))
     
     class Meta:
         model = User
-        fields = ["username", "first_name", "last_name", "email", "password"]
+        fields = ["username", "first_name", "last_name", "email"]
 
     
     def __init__(self, *args, **kwargs):
@@ -25,3 +22,9 @@ class EditProfileForm(forms.ModelForm):
         self.fields["username"].widget.attrs["placeholder"] = "Usuário"
         self.fields["first_name"].widget.attrs["placeholder"] = "Primeiro Nome"
         self.fields["last_name"].widget.attrs["placeholder"] = "Sobrenome"
+
+        if self.instance:
+            self.fields["username"].initial = self.instance.username
+            self.fields["first_name"].initial = self.instance.first_name
+            self.fields["last_name"].initial = self.instance.last_name
+
