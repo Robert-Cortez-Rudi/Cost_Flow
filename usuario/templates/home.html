@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<section id="home">
+    <div class="hero text-center">
+        <h1>Bem-vindo ao Cost Flow</h1>
+        <p>Administre suas despesas de forma simples e interativa!</p>
+        <a href="#" class="btn cta__button">Comece agora</a>
+    </div>
+</section>
+
+<section id="features">
+    <h2>O que oferecemos</h2>
+    <div class="benefits">
+
+        <div class="benefit">
+            <h3>🎯 Estabeleça e alcance metas financeiras</h3>
+            <h4>Defina seus objetivos financeiros de forma clara e estratégica.</h4>
+            <p>O primeiro passo para uma vida financeira saudável é ter metas bem definidas. Com nosso sistema, você
+                pode estabelecer objetivos financeiros realistas, como economizar para uma viagem, quitar dívidas ou
+                aumentar a sua reserva de emergência. Acompanhe seu progresso em tempo real e ajuste suas estratégias
+                para garantir que você atinja seus objetivos com facilidade e eficiência. As metas financeiras serão
+                descomplicadas, tornando o caminho até a sua estabilidade financeira mais acessível e alcançável.</p>
+        </div>
+        <div class="benefit">
+            <h3>💸 Controle de seus gastos em tempo real</h3>
+            <h4>Acompanhe suas despesas à medida que elas acontecem.</h4>
+            <p>Com nosso sistema, você tem o controle total sobre seus gastos. Veja como e onde está gastando seu
+                dinheiro em tempo real, de forma fácil e intuitiva. Isso permite que você tome decisões financeiras mais
+                informadas, evitando surpresas no final do mês e ajudando a evitar desperdícios. Seja em refeições,
+                compras ou entretenimento, você saberá exatamente quanto está gastando, e poderá ajustar seus hábitos
+                para ficar dentro do seu orçamento e evitar gastos excessivos.</p>
+        </div>
+        <div class="benefit">
+            <h3>📊 Relatórios detalhados e personalizados sobre suas despesas</h3>
+            <h4>Compreenda seus hábitos financeiros com relatórios personalizados.</h4>
+            <p>Obtenha uma visão completa de seus gastos com relatórios detalhados e personalizados, adaptados às suas
+                necessidades. O sistema categoriza suas despesas, mostrando onde você está gastando mais, e fornece
+                gráficos interativos para facilitar a visualização. Esses relatórios ajudam você a identificar padrões
+                de consumo e áreas onde pode economizar. Seja para uma análise mensal ou para entender os custos ao
+                longo do ano, os relatórios personalizados oferecem insights valiosos para uma gestão financeira mais
+                eficiente.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Cost Flow</p>
+</footer>
+{% endblock %}
