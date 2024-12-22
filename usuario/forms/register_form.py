@@ -1,10 +1,10 @@
 from django import forms
-from models import User
+from ..models import User
 
 class UserSignForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Senha", "class": "form-control"}), 
+    password = forms.CharField(min_length=8, widget=forms.PasswordInput(attrs={"placeholder": "Senha", "class": "form-control"}), 
                                label="Senha", strip=False)
-    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Confirmar Senha", "class": "form-control"}), 
+    confirm_password = forms.CharField(min_length=8, widget=forms.PasswordInput(attrs={"placeholder": "Confirmar Senha", "class": "form-control"}), 
                                        label="Confirmar Senha", strip=False)
     
     class Meta:
