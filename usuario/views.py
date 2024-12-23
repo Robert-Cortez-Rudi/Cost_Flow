@@ -24,10 +24,10 @@ def login(request):
             )
             if user is not None:
                 login(request, user)
-                messages.success(request, f"Login efetuado com sucesso!")
                 return redirect("home")
             else:
                 messages.error(request, "Usuário ou senha inválida!")
+                return redirect("login")
     else:
         form = UserLoginForm()
     return render(request, "login.html", {"form": form})
