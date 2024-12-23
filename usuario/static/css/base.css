@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Montserrat", -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 :root {
@@ -69,11 +69,19 @@ nav > .nav-links > li {
     padding: .5rem .5rem;
     border-radius: 5px;
     font-size: 14px;
-    transition: background-color 0.5s;
+    transition: background-color 0.5s, transform 0.2s;
 }
 
 .auth-buttons .btn:hover {
     background-color: #474747;
 }
 
+.auth-buttons .btn:active {
+    transform: scale(0.95);
+}
 
+.profile-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
