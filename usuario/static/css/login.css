@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #E0E0CE;
     display: flex;
     justify-content: center;
@@ -65,7 +65,7 @@ body {
 .custom-login-container input[type="text"],
 .custom-login-container input[type="password"] {
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Aumentado o espaçamento entre os campos */
     border: 1px solid #474747;
     border-radius: 4px;
     font-size: 14px;
@@ -83,12 +83,13 @@ body {
     width: 100%;
     max-width: 150px;
     align-self: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .custom-login-container button[type="submit"]:hover {
     background-color: #AD343E;
     color: #fff;
+    transform: scale(1.05); /* Efeito de ampliação suave */
 }
 
 .custom-form-errors {
@@ -100,6 +101,7 @@ body {
     border-radius: 4px;
     font-weight: bold;
     text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adicionando uma leve sombra */
 }
 
 .custom-form-errors ul {
@@ -151,4 +153,15 @@ body {
 
 .custom-register-link a:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .custom-login-container {
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    .custom-container {
+        padding: 10px;
+    }
 }
