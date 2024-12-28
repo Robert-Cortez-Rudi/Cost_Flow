@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Despesa
 from .forms import DespesaForm
 import pandas as pd
+import logging
+
+logger = logging.getLogger(__name__)
 
 @login_required(login_url="login")
 def despesa_list(request):
@@ -22,7 +25,7 @@ def despesa_list(request):
         'total_despesas': total_despesas,
         'despesas_por_categoria': despesas_por_categoria
     }
-    return render(request, 'despesa_list.html', context)
+    return render(request, 'despesas.html', context)
 
 
 @login_required(login_url="login")
@@ -35,7 +38,10 @@ def despesa_create(request):
             despesa.usuario = request.user
             despesa.save()
             messages.success(request, "Despesa criada com sucesso!")
-            return redirect('despesa-list')
+            logger.debug("Despesa criada com sucesso!")
+            return redirect('despesa_list')
+        else:
+            logger.debug("Formulário inválido: %s", form.errors)
     else:
         form = DespesaForm()
     return render(request, 'despesa_form.html', {'form': form})
@@ -50,7 +56,7 @@ def despesa_update(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Despesa atualizada com sucesso!")
-            return redirect('despesa-list')
+            return redirect('despesa_list')
     else:
         form = DespesaForm(instance=despesa)
     return render(request, 'despesa_form.html', {'form': form})
@@ -62,6 +68,4 @@ def despesa_delete(request, pk):
     despesa = get_object_or_404(Despesa, pk=pk, usuario=request.user)
     despesa.delete()
     messages.success(request, "Despesa deletada com sucesso!")
-    return redirect('despesa-list')
-
-
+    return redirect('despesa_list')
