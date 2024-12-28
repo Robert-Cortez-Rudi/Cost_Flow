@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/despesa_form.css' %}">
+<div class="container">
+    <a href="{% url 'despesa_list' %}" class="back-link">
+        <img src="{% static 'img/Arrow.svg' %}" alt="Voltar" class="back-arrow">
+    </a>
+    <h2>{% if form.instance.pk %}Editar Despesa{% else %}Adicionar Despesa{% endif %}</h2>
+    <form method="POST" action="{% if form.instance.pk %}{% url 'despesa_update' form.instance.pk %}{% else %}{% url 'despesa_create' %}{% endif %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">{% if form.instance.pk %}Atualizar{% else %}Adicionar{% endif %}</button>
+    </form>
+</div>
+{% endblock %}
