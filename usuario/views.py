@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from .forms import UserSignForm, UserLoginForm, EditProfileForm
+from django.contrib.auth.models import User
 
 def home(request):
     return render(request, 'home.html')
@@ -34,13 +35,6 @@ def login_user(request):
 
 
 # View Register
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from .forms import UserSignForm
-from django.views.decorators.http import require_http_methods
-from django.contrib.auth.models import User
-
 @require_http_methods(['GET', 'POST'])
 def register(request):
     if request.method == "POST":
@@ -113,7 +107,7 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Perfil atualizado com sucesso!")
-            return redirect("home")
+            return redirect("profile")
     else:
         form = EditProfileForm(instance=user)
     return render(request, "edit_profile.html", {"form": form})
