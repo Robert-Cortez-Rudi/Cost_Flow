@@ -1,0 +1,110 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #E0E0CE;
+    color: #474747;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #F2E8C4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+h2 {
+    color: #8B9A46;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #8B9A46;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #778b1a;
+}
+
+.btn-warning {
+    background-color: #F2AF29;
+    color: #fff;
+}
+
+.btn-warning:hover {
+    background-color: #d6981a;
+}
+
+.btn-danger {
+    background-color: #AD343E;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #a52731;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.table th, .table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.table th {
+    background-color: #8B9A46;
+    color: #fff;
+}
+
+.table tr:nth-child(even) {
+    background-color: #F2E8C4;
+}
+
+.table tr:hover {
+    background-color: #E0E0CE;
+}
+
+.alert {
+    padding: 15px;
+    background-color: #8B9A46;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert.success {
+    background-color: #8B9A46;
+}
+
+.text-muted {
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
