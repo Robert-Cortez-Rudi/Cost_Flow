@@ -3,7 +3,7 @@
         to bottom,
         rgba(0, 0, 0, 0) 0%,
         rgba(0, 0, 0, 0.8) 100%
-    ), url("{% static 'img/Finance.jpg' %}");
+    ), url("../img/Finance.jpg");
     background-size: cover;
     color: #FFF;
     padding: 8rem 0;
