@@ -6,6 +6,28 @@ body {
     padding: 0;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-container h2 {
+    margin: 0;
+}
+
+.header-container .btn-group {
+    display: flex;
+    gap: 5px;
+}
+
+.header-container .btn-group .btn {
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
 .container {
     width: 80%;
     margin: 0 auto;
@@ -22,38 +44,37 @@ h2 {
     margin-bottom: 20px;
 }
 
+.btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    margin: 10px 0;
     border: none;
-    border-radius: 5px;
+    border-radius: 9px;
     text-decoration: none;
     color: #fff;
-    background-color: #8B9A46;
     transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-    background-color: #778b1a;
+.btn-success {
+    background-color: #8B9A46;
 }
 
-.btn-warning {
-    background-color: #F2AF29;
-    color: #fff;
-}
-
-.btn-warning:hover {
-    background-color: #d6981a;
+.btn-success:hover {
+    background-color: #80922e;
 }
 
 .btn-danger {
     background-color: #AD343E;
-    color: #fff;
 }
 
 .btn-danger:hover {
-    background-color: #a52731;
+    background-color: #a0222c;
 }
 
 .table {
