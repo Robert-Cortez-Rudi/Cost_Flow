@@ -4,7 +4,13 @@
 <link rel="stylesheet" href="{% static 'css/despesas.css' %}">
 <div class="container">
     <h2>Lista de Despesas</h2>
-    <a href="{% url 'despesa_create' %}" class="btn">Adicionar Despesa</a>
+    <div class="header-container">
+        <div class="btn-group">
+            <a href="{% url 'despesa_create' %}?tipo=entrada" class="btn btn-success">Adicionar Entrada</a>
+            <a href="{% url 'despesa_create' %}?tipo=saida" class="btn btn-danger">Adicionar Despesa</a>
+        </div>
+    </div>
+    
     {% if despesas.exists %}
         <table class="table">
             <thead>
@@ -13,16 +19,18 @@
                     <th>Valor</th>
                     <th>Descrição</th>
                     <th>Data</th>
+                    <th>Tipo</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for despesa in despesas %}
-                <tr>
+                <tr class="{% if despesa.tipo == 'entrada' %}entrada{% else %}saida{% endif %}">
                     <td>{{ despesa.get_categoria_display }}</td>
                     <td>{{ despesa.valor }}</td>
                     <td>{{ despesa.descricao }}</td>
                     <td>{{ despesa.data }}</td>
+                    <td>{{ despesa.get_tipo_display }}</td>
                     <td>
                         <a href="{% url 'despesa_update' despesa.pk %}" class="btn btn-warning">Editar</a>
                         <form action="{% url 'despesa_delete' despesa.pk %}" method="post" style="display:inline;">
