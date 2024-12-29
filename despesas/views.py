@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from .models import Despesa
-from .forms import DespesaForm
+from .forms import EntradaForm, DespesaForm
 import pandas as pd
 import logging
 
@@ -31,36 +31,59 @@ def despesa_list(request):
 @login_required(login_url="login")
 @require_http_methods(['GET', 'POST'])
 def despesa_create(request):
-    if request.method == "POST":
-        form = DespesaForm(request.POST)
+    tipo = request.GET.get('tipo', 'entrada')  # Define o tipo com base no parâmetro GET (padrão: entrada)
+
+    if request.method == 'POST':
+        # Seleciona o formulário correto com base no tipo
+        if tipo == 'entrada':
+            form = EntradaForm(request.POST)
+        else:
+            form = DespesaForm(request.POST)
+        
         if form.is_valid():
             despesa = form.save(commit=False)
             despesa.usuario = request.user
+            despesa.tipo = tipo  # Define o tipo da despesa/entrada
             despesa.save()
-            messages.success(request, "Despesa criada com sucesso!")
-            logger.debug("Despesa criada com sucesso!")
-            return redirect('despesa_list')
-        else:
-            logger.debug("Formulário inválido: %s", form.errors)
+            return redirect(f'despesa_create?tipo={tipo}')  # Redireciona com o mesmo tipo
     else:
-        form = DespesaForm()
-    return render(request, 'despesa_form.html', {'form': form})
+        # Carrega o formulário correto com base no tipo
+        if tipo == 'entrada':
+            form = EntradaForm()
+        else:
+            form = DespesaForm()
+
+    return render(request, 'despesa_form.html', {'form': form, 'tipo': tipo})
 
 
 @login_required(login_url="login")
 @require_http_methods(['GET', 'POST'])
 def despesa_update(request, pk):
+    # Obtém a despesa associada ao usuário logado
     despesa = get_object_or_404(Despesa, pk=pk, usuario=request.user)
-    if request.method == "POST":
-        form = DespesaForm(request.POST, instance=despesa)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Despesa atualizada com sucesso!")
-            return redirect('despesa_list')
-    else:
-        form = DespesaForm(instance=despesa)
-    return render(request, 'despesa_form.html', {'form': form})
+    tipo = despesa.tipo  # Define o tipo com base na despesa existente
 
+    if request.method == "POST":
+        # Seleciona o formulário correto com base no tipo
+        if tipo == "entrada":
+            form = EntradaForm(request.POST, instance=despesa)
+        else:
+            form = DespesaForm(request.POST, instance=despesa)
+        
+        if form.is_valid():
+            despesa = form.save(commit=False)
+            despesa.usuario = request.user
+            despesa.save()
+            return redirect('despesa_list')  # Redireciona para a lista de despesas
+    else:
+        # Carrega o formulário com a despesa existente
+        if tipo == 'entrada':
+            form = EntradaForm(instance=despesa)
+        else:
+            form = DespesaForm(instance=despesa)
+
+    return render(request, 'despesa_form.html', {'form': form, 'tipo': tipo})
+    # TERMINAR ESSE AJUSTE
 
 @login_required(login_url="login")
 @require_http_methods(['POST'])
