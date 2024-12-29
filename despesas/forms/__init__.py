@@ -1,1 +1,1 @@
-from .despesa_form import DespesaForm
+from .despesa_form import DespesaForm, EntradaForm
