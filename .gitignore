@@ -2,3 +2,5 @@
 __pycache__/
 .env
 0001_initial.py
+0002_despesa_tipo_alter_despesa_categoria.py
+0003_remove_despesa_tipo_alter_despesa_categoria_entrada.py
