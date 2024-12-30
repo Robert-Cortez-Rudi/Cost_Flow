@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from .models import Despesa
 from .forms import EntradaForm, DespesaForm
 import pandas as pd
@@ -31,10 +33,9 @@ def despesa_list(request):
 @login_required(login_url="login")
 @require_http_methods(['GET', 'POST'])
 def despesa_create(request):
-    tipo = request.GET.get('tipo', 'entrada')  # Define o tipo com base no parâmetro GET (padrão: entrada)
+    tipo = request.GET.get('tipo', 'entrada')  
 
     if request.method == 'POST':
-        # Seleciona o formulário correto com base no tipo
         if tipo == 'entrada':
             form = EntradaForm(request.POST)
         else:
@@ -43,11 +44,11 @@ def despesa_create(request):
         if form.is_valid():
             despesa = form.save(commit=False)
             despesa.usuario = request.user
-            despesa.tipo = tipo  # Define o tipo da despesa/entrada
+            despesa.tipo = tipo  
             despesa.save()
-            return redirect(f'despesa_create?tipo={tipo}')  # Redireciona com o mesmo tipo
+            
+            return redirect("despesa_list")
     else:
-        # Carrega o formulário correto com base no tipo
         if tipo == 'entrada':
             form = EntradaForm()
         else:
@@ -56,15 +57,14 @@ def despesa_create(request):
     return render(request, 'despesa_form.html', {'form': form, 'tipo': tipo})
 
 
+
 @login_required(login_url="login")
 @require_http_methods(['GET', 'POST'])
 def despesa_update(request, pk):
-    # Obtém a despesa associada ao usuário logado
     despesa = get_object_or_404(Despesa, pk=pk, usuario=request.user)
-    tipo = despesa.tipo  # Define o tipo com base na despesa existente
+    tipo = despesa.tipo  
 
     if request.method == "POST":
-        # Seleciona o formulário correto com base no tipo
         if tipo == "entrada":
             form = EntradaForm(request.POST, instance=despesa)
         else:
@@ -74,16 +74,14 @@ def despesa_update(request, pk):
             despesa = form.save(commit=False)
             despesa.usuario = request.user
             despesa.save()
-            return redirect('despesa_list')  # Redireciona para a lista de despesas
+            return redirect('despesa_list')  
     else:
-        # Carrega o formulário com a despesa existente
         if tipo == 'entrada':
             form = EntradaForm(instance=despesa)
         else:
             form = DespesaForm(instance=despesa)
 
     return render(request, 'despesa_form.html', {'form': form, 'tipo': tipo})
-    # TERMINAR ESSE AJUSTE
 
 @login_required(login_url="login")
 @require_http_methods(['POST'])
