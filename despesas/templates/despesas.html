@@ -25,12 +25,14 @@
             </thead>
             <tbody>
                 {% for despesa in despesas %}
-                <tr class="{% if despesa.tipo == 'entrada' %}entrada{% else %}saida{% endif %}">
+                <tr>
                     <td>{{ despesa.get_categoria_display }}</td>
                     <td>{{ despesa.valor }}</td>
                     <td>{{ despesa.descricao }}</td>
                     <td>{{ despesa.data }}</td>
-                    <td>{{ despesa.get_tipo_display }}</td>
+                    <td class="{% if despesa.tipo == 'Entrada' %}entrada{% else %}saida{% endif %}">
+                        {{ despesa.tipo }}
+                    </td>
                     <td>
                         <a href="{% url 'despesa_update' despesa.pk %}" class="btn btn-warning">Editar</a>
                         <form action="{% url 'despesa_delete' despesa.pk %}" method="post" style="display:inline;">
@@ -38,7 +40,7 @@
                             <button type="submit" class="btn btn-danger">Excluir</button>
                         </form>
                     </td>
-                </tr>
+                </tr>                
                 {% endfor %}
             </tbody>
         </table>
