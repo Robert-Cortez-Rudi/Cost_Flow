@@ -121,6 +121,16 @@ h2 {
     animation: fadeIn 1s ease-in-out;
 }
 
+.entrada {
+    background-color: #c6d874;
+    color: #8B9A46;
+}
+
+.saida {
+    background-color: #d15d67;
+    color: #AD343E;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
