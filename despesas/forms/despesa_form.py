@@ -1,9 +1,9 @@
 from django import forms
-from ..models import Despesa
+from ..models import Despesa, Entrada
 
 class EntradaForm(forms.ModelForm):
     class Meta:
-        model = Despesa
+        model = Entrada
         fields = ['categoria', 'valor', 'descricao']
         widgets = {
             'categoria': forms.Select(attrs={'class': 'form-control'}),
