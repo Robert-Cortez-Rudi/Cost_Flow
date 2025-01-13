@@ -4,17 +4,23 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from .models import Despesa
+from django.db.models import Value, CharField
+from .models import Despesa, Entrada
 from .forms import EntradaForm, DespesaForm
 import pandas as pd
 import logging
 
 logger = logging.getLogger(__name__)
 
+
 @login_required(login_url="login")
 def despesa_list(request):
-    despesas = Despesa.objects.filter(usuario=request.user)
-    df = pd.DataFrame(list(despesas.values('categoria', 'valor')))
+    despesas = Despesa.objects.filter(usuario=request.user).annotate(tipo=Value('Saida', output_field=CharField()))
+    entradas = Entrada.objects.filter(usuario=request.user).annotate(tipo=Value('Entrada', output_field=CharField()))
+
+    despesas_completas = despesas.union(entradas, all=True).order_by('-data')
+
+    df = pd.DataFrame(list(despesas_completas.values('categoria', 'valor', 'tipo', 'data')))
     if not df.empty:
         df['valor'] = df['valor'].astype(float)
         total_despesas = df['valor'].sum()
@@ -22,8 +28,9 @@ def despesa_list(request):
     else:
         total_despesas = 0
         despesas_por_categoria = {}
+
     context = {
-        'despesas': despesas,
+        'despesas': despesas_completas,
         'total_despesas': total_despesas,
         'despesas_por_categoria': despesas_por_categoria
     }
