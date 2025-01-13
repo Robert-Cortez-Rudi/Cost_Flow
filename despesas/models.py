@@ -68,7 +68,7 @@ class Despesa(models.Model):
     def clean(self):
         if self.valor <= 0:
             raise ValidationError('O valor da despesa deve ser positivo.')
-
+    
     class Meta:
         ordering = ['-data']
         verbose_name_plural = 'Despesas'
